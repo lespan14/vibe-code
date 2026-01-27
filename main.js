@@ -61,7 +61,7 @@ const SOURCE_URLS = {
     "Bloomberg": "https://www.bloomberg.com/markets",
     "Reuters": "https://www.reuters.com/business",
     "CNBC": "https://www.cnbc.com/world/",
-    "Yonhap": "https://en.yna.co.kr/market/index",
+    "Yonhap": "https://en.yna.co.kr/business/economy",
     "The Verge": "https://www.theverge.com/tech",
     "TechCrunch": "https://techcrunch.com/",
     "Wall Street Journal": "https://www.wsj.com/news/markets",
