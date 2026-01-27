@@ -473,6 +473,31 @@ body {
 
 .rating-buy { color: var(--success); }
 
+.beneficiary-box {
+    background-color: #fff8e1; /* Light yellow/gold */
+    border: 1px solid #ffe082;
+    padding: 1.2rem;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+}
+
+.beneficiary-box h3 {
+    margin-top: 0;
+    margin-bottom: 0.8rem;
+    font-size: 1rem;
+    color: #f57f17; /* Darker orange/gold text */
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.beneficiary-box p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: #4e342e;
+    line-height: 1.5;
+}
+
 /* Responsive */
 @media (max-width: 600px) {
     .header-content { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
