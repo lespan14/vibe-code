@@ -57,6 +57,7 @@ body {
     display: flex;
     gap: 1.5rem;
     font-size: 0.9rem;
+    align-items: center;
 }
 
 .lang-btn {
@@ -115,6 +116,8 @@ body {
     padding: 1.5rem;
     transition: transform 0.2s, box-shadow 0.2s;
     border: 1px solid transparent;
+    display: flex;
+    flex-direction: column;
 }
 
 .news-card:hover {
@@ -126,7 +129,7 @@ body {
 .news-header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 1rem;
+    margin-bottom: 0.8rem;
     font-size: 0.8rem;
     color: var(--text-sub);
 }
@@ -137,8 +140,16 @@ body {
 
 .news-title {
     font-size: 1.25rem;
-    margin: 0 0 1rem 0;
+    margin: 0 0 0.5rem 0;
     line-height: 1.4;
+}
+
+.news-source {
+    font-size: 0.8rem;
+    color: var(--text-sub);
+    font-style: italic;
+    margin-bottom: 1rem;
+    display: block;
 }
 
 .summary-box {
@@ -146,6 +157,7 @@ body {
     padding: 1rem;
     border-radius: 8px;
     margin-bottom: 1.5rem;
+    flex-grow: 1; /* Pushes content down if needed, but mainly keeps layout consistent */
 }
 
 .summary-title {
@@ -173,6 +185,7 @@ body {
     flex-wrap: wrap;
     gap: 0.5rem;
     align-items: center;
+    margin-top: auto; /* Push to bottom */
 }
 
 .related-label {
@@ -204,6 +217,43 @@ body {
 
 .stock-btn .trend-up { color: var(--success); font-size: 0.8em; }
 .stock-btn .trend-down { color: var(--danger); font-size: 0.8em; }
+
+/* Pagination */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 3rem;
+    margin-bottom: 2rem;
+}
+
+.page-btn {
+    border: 1px solid var(--border);
+    background: var(--card-bg);
+    color: var(--text-main);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.page-btn:hover {
+    background-color: var(--bg-color);
+    border-color: var(--text-sub);
+}
+
+.page-btn.active {
+    background-color: var(--primary);
+    color: white;
+    border-color: var(--primary);
+}
+
+.page-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
 
 /* Modal */
 .modal {
