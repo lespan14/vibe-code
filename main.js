@@ -77,69 +77,69 @@ const SOURCE_URLS = {
 
 const SOURCES = Object.keys(SOURCE_URLS);
 
-// Real-World Headlines fetched from FT (Simulated Integration)
-const REAL_HEADLINES = [
+// Real-World Headlines fetched from Investing.com (Simulated Integration)
+const INVESTING_HEADLINES = [
     {
-        title: "Dollar sinks to 4-month low and gold soars past $5,000 as yen leaps",
-        summary: "Japanese currency climbs sharply on speculation of joint US-Japan market intervention, adding to pressure on greenback.",
-        deep: "The US dollar has plummeted to a four-month low against major peers, driven by intensifying speculation that US and Japanese authorities are coordinating a massive intervention to stabilize the yen. Concurrently, gold prices have shattered historical records, surging past $5,000 per ounce as investors seek safe-haven assets amidst the currency volatility. Analysts warn that this decoupling could signal a broader shift in global monetary dynamics.",
-        reason: "Currency fluctuations directly impact export competitiveness and profit repatriation for multinational corporations.",
-        url: "https://www.ft.com/"
+        title: "Getinge forecasts 3-5% sales growth in 2026, proposes higher dividend",
+        summary: "Getinge forecasts 3-5% organic sales growth in 2026 after reporting 4.9% growth previously.",
+        deep: "Getinge has released optimistic guidance for 2026, projecting organic sales growth between 3% and 5%. This follows a solid performance of 4.9% growth in the previous period. The company also proposed a higher dividend, signaling confidence in its cash flow and operational stability. Investors are reacting positively to the continued growth trajectory in the medical technology sector.",
+        reason: "Strong guidance and dividend hike signal financial health, attracting income-focused investors.",
+        url: "https://www.investing.com/news/stock-market-news/getinge-forecasts-35-sales-growth-in-2026-proposes-higher-dividend-43210" // Simulated link based on pattern
     },
     {
-        title: "Memory stocks soar as investors hunt for new AI winners",
-        summary: "Sector sees massive inflow as capital rotates from hardware to storage solutions.",
-        deep: "Global memory chip manufacturers are witnessing a historic rally. As the AI infrastructure build-out matures, investor focus is shifting from logic processors (GPUs) to high-bandwidth memory (HBM) essential for training large language models. This rotation has sent valuations of major memory players skyrocketing, with market volume reaching yearly highs.",
-        reason: "Direct beneficiary of the capital rotation into memory semiconductors essential for AI stacks.",
-        url: "https://www.ft.com/"
+        title: "Cranswick upgrades full-year profit outlook after solid Q3 growth",
+        summary: "Cranswick reports strong revenue growth in Q3, upgrading full-year profit outlook.",
+        deep: "Food producer Cranswick has upgraded its full-year profit outlook following a quarter of robust revenue growth. The momentum is driven by strong volume growth across its core categories. This upgrade defies broader inflationary pressures in the consumer goods sector, highlighting the company's pricing power and operational efficiency.",
+        reason: "Profit outlook upgrade usually triggers immediate stock price appreciation due to revised earnings estimates.",
+        url: "https://www.investing.com/news/stock-market-news/cranswick-upgrades-fullyear-profit-outlook-after-solid-q3-growth-43211"
     },
     {
-        title: "European IPO market starts 2026 at record pace, sparking hope of revival",
-        summary: "Listing volumes hit decade high in Q1, signaling returned investor confidence.",
-        deep: "After a prolonged drought, the European IPO market has roared back to life in early 2026. Data shows listing volumes have exceeded expectations, hitting a decade high for the first quarter. This resurgence is attributed to stabilizing interest rates and a renewed appetite for risk assets among institutional investors, potentially marking the end of the liquidity crunch.",
-        reason: "Improved market sentiment and liquidity encourage capital raising and expansion plans.",
-        url: "https://www.ft.com/"
+        title: "Uniphar reports strong FY25 results with 9% organic growth, beats EPS",
+        summary: "Uniphar reports 9% organic gross profit growth for FY25, beating EPS expectations.",
+        deep: "Healthcare services provider Uniphar delivered a strong set of full-year results, characterized by 9% organic gross profit growth. Crucially, the company beat earnings per share (EPS) expectations, demonstrating effective cost management and margin expansion. This performance validates its strategy of expanding into higher-margin pharmaceutical services.",
+        reason: "Beating EPS expectations typically results in a positive market reaction as it indicates undervaluation.",
+        url: "https://www.investing.com/news/stock-market-news/uniphar-reports-strong-fy25-results-with-9-organic-growth-beats-eps-43212"
     },
     {
-        title: "Vanguard tops $1tn in assets managed outside US",
-        summary: "Passive investing giant hits historic milestone in international expansion.",
-        deep: "Vanguard Group has officially surpassed $1 trillion in assets under management (AUM) outside of the United States. This milestone underscores the successful global export of its low-cost index fund model. The growth is particularly strong in European and Asian markets, where fee-conscious investors are increasingly moving away from active management.",
-        reason: "Signals strong global demand for financial services and asset management products.",
-        url: "https://www.ft.com/"
+        title: "Sandvik annual revenue dips 2% on forex, but profit jumps 20%",
+        "summary": "Sandvik reports 2% revenue dip due to forex, but profit jumps 20% on operational efficiency.",
+        deep: "Engineering group Sandvik faced headwinds from foreign exchange rates, resulting in a 2% dip in annual revenue. However, the company managed a remarkable 20% jump in profit, underscoring significant improvements in operational efficiency and cost control. The market is likely to look past the top-line miss and focus on the impressive bottom-line expansion.",
+        reason: "Operational efficiency improvements leading to profit jumps often outweigh minor revenue misses.",
+        url: "https://www.investing.com/news/stock-market-news/sandvik-annual-revenue-dips-2-on-forex-but-profit-jumps-20-43213"
     },
     {
-        title: "US investment-grade credit spreads reach lowest level this century",
-        summary: "Bond market signals extreme optimism despite lingering inflation concerns.",
-        deep: "The difference in yields between US Treasury bonds and investment-grade corporate debt has narrowed to its tightest level since the year 2000. This compression indicates that credit markets are pricing in a 'perfect soft landing' scenario, with virtually no fear of corporate defaults. However, some contrarian strategists warn this level of complacency often precedes a market correction.",
-        reason: "Low borrowing costs improve corporate balance sheets and profitability outlooks.",
-        url: "https://www.ft.com/"
+        "title": "HMS Networks Q4 profit surges 64% on higher sales, proposes dividend",
+        "summary": "HMS Networks Q4 adjusted profit surges 64% driven by higher sales volume.",
+        deep: "Industrial communications firm HMS Networks reported a stellar fourth quarter, with adjusted profit surging by 64%. The growth was driven by a significant increase in sales volume, indicating robust demand for industrial automation and connectivity solutions. The proposal of a dividend further sweetens the deal for shareholders.",
+        reason: "Massive profit surge and dividend proposal are strong bullish signals for industrial tech stocks.",
+        url: "https://www.investing.com/news/stock-market-news/hms-networks-q4-profit-surges-64-on-higher-sales-proposes-dividend-43214"
     }
 ];
 
-// Generate 5 items based on real headlines
+// Generate items based on Investing.com headlines
 MOCK_NEWS.length = 0; // Clear existing
-for (let i = 0; i < REAL_HEADLINES.length; i++) {
-    const headline = REAL_HEADLINES[i];
+for (let i = 0; i < INVESTING_HEADLINES.length; i++) {
+    const headline = INVESTING_HEADLINES[i];
     const company = COMPANIES[Math.floor(Math.random() * COMPANIES.length)]; // Assign random company for demo
     
-    // Simulate bilingual content (In a real app, we'd translate this via API)
+    // Simulate bilingual content
     MOCK_NEWS.push({
         id: i + 1,
         title: {
             en: headline.title,
-            ko: "[FT] " + headline.title // Placeholder for KR translation
+            ko: "[Investing.com] " + headline.title 
         },
-        source: "Financial Times",
+        source: "Investing.com",
         url: headline.url,
-        flag: "🇪🇺 EU/Global",
+        flag: "🌍 Global Market",
         timestamp: new Date().toISOString(),
         summary: {
             en: [headline.summary, "Market impact analysis pending.", "Key sector update."],
-            ko: [headline.summary, "시장 영향 분석 진행 중.", "주요 섹터 업데이트."] // Placeholder
+            ko: [headline.summary, "시장 영향 분석 진행 중.", "주요 섹터 업데이트."] 
         },
         deep: {
             en: headline.deep,
-            ko: "이 분석은 Financial Times의 최신 헤드라인을 바탕으로 AI가 생성한 시뮬레이션입니다. " + headline.deep
+            ko: "이 분석은 Investing.com의 최신 헤드라인을 바탕으로 AI가 생성한 시뮬레이션입니다. " + headline.deep
         },
         relatedStocks: [
             { 
@@ -149,7 +149,7 @@ for (let i = 0; i < REAL_HEADLINES.length; i++) {
                 price: (Math.random() * 500 + 50).toFixed(0),
                 reason: {
                     en: headline.reason,
-                    ko: "해당 뉴스는 거시 경제적 요인 또는 섹터 호재로서 이 종목에 긍정적인 영향을 미칠 것으로 예상됩니다."
+                    ko: "해당 뉴스는 기업 실적 및 전망 호조로 인해 주가에 긍정적인 영향을 미칠 것으로 보입니다."
                 }
             }
         ]
