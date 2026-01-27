@@ -77,11 +77,89 @@ const SOURCE_URLS = {
 
 const SOURCES = Object.keys(SOURCE_URLS);
 
-// Generate 54 items
-for (let i = 1; i <= 54; i++) {
+// Real-World Headlines fetched from FT (Simulated Integration)
+const REAL_HEADLINES = [
+    {
+        title: "Dollar sinks to 4-month low and gold soars past $5,000 as yen leaps",
+        summary: "Japanese currency climbs sharply on speculation of joint US-Japan market intervention, adding to pressure on greenback.",
+        deep: "The US dollar has plummeted to a four-month low against major peers, driven by intensifying speculation that US and Japanese authorities are coordinating a massive intervention to stabilize the yen. Concurrently, gold prices have shattered historical records, surging past $5,000 per ounce as investors seek safe-haven assets amidst the currency volatility. Analysts warn that this decoupling could signal a broader shift in global monetary dynamics.",
+        reason: "Currency fluctuations directly impact export competitiveness and profit repatriation for multinational corporations.",
+        url: "https://www.ft.com/"
+    },
+    {
+        title: "Memory stocks soar as investors hunt for new AI winners",
+        summary: "Sector sees massive inflow as capital rotates from hardware to storage solutions.",
+        deep: "Global memory chip manufacturers are witnessing a historic rally. As the AI infrastructure build-out matures, investor focus is shifting from logic processors (GPUs) to high-bandwidth memory (HBM) essential for training large language models. This rotation has sent valuations of major memory players skyrocketing, with market volume reaching yearly highs.",
+        reason: "Direct beneficiary of the capital rotation into memory semiconductors essential for AI stacks.",
+        url: "https://www.ft.com/"
+    },
+    {
+        title: "European IPO market starts 2026 at record pace, sparking hope of revival",
+        summary: "Listing volumes hit decade high in Q1, signaling returned investor confidence.",
+        deep: "After a prolonged drought, the European IPO market has roared back to life in early 2026. Data shows listing volumes have exceeded expectations, hitting a decade high for the first quarter. This resurgence is attributed to stabilizing interest rates and a renewed appetite for risk assets among institutional investors, potentially marking the end of the liquidity crunch.",
+        reason: "Improved market sentiment and liquidity encourage capital raising and expansion plans.",
+        url: "https://www.ft.com/"
+    },
+    {
+        title: "Vanguard tops $1tn in assets managed outside US",
+        summary: "Passive investing giant hits historic milestone in international expansion.",
+        deep: "Vanguard Group has officially surpassed $1 trillion in assets under management (AUM) outside of the United States. This milestone underscores the successful global export of its low-cost index fund model. The growth is particularly strong in European and Asian markets, where fee-conscious investors are increasingly moving away from active management.",
+        reason: "Signals strong global demand for financial services and asset management products.",
+        url: "https://www.ft.com/"
+    },
+    {
+        title: "US investment-grade credit spreads reach lowest level this century",
+        summary: "Bond market signals extreme optimism despite lingering inflation concerns.",
+        deep: "The difference in yields between US Treasury bonds and investment-grade corporate debt has narrowed to its tightest level since the year 2000. This compression indicates that credit markets are pricing in a 'perfect soft landing' scenario, with virtually no fear of corporate defaults. However, some contrarian strategists warn this level of complacency often precedes a market correction.",
+        reason: "Low borrowing costs improve corporate balance sheets and profitability outlooks.",
+        url: "https://www.ft.com/"
+    }
+];
+
+// Generate 5 items based on real headlines
+MOCK_NEWS.length = 0; // Clear existing
+for (let i = 0; i < REAL_HEADLINES.length; i++) {
+    const headline = REAL_HEADLINES[i];
+    const company = COMPANIES[Math.floor(Math.random() * COMPANIES.length)]; // Assign random company for demo
+    
+    // Simulate bilingual content (In a real app, we'd translate this via API)
+    MOCK_NEWS.push({
+        id: i + 1,
+        title: {
+            en: headline.title,
+            ko: "[FT] " + headline.title // Placeholder for KR translation
+        },
+        source: "Financial Times",
+        url: headline.url,
+        flag: "🇪🇺 EU/Global",
+        timestamp: new Date().toISOString(),
+        summary: {
+            en: [headline.summary, "Market impact analysis pending.", "Key sector update."],
+            ko: [headline.summary, "시장 영향 분석 진행 중.", "주요 섹터 업데이트."] // Placeholder
+        },
+        deep: {
+            en: headline.deep,
+            ko: "이 분석은 Financial Times의 최신 헤드라인을 바탕으로 AI가 생성한 시뮬레이션입니다. " + headline.deep
+        },
+        relatedStocks: [
+            { 
+                ticker: company.ticker, 
+                name: company.name, 
+                change: (Math.random() * 5 + 1).toFixed(1), 
+                price: (Math.random() * 500 + 50).toFixed(0),
+                reason: {
+                    en: headline.reason,
+                    ko: "해당 뉴스는 거시 경제적 요인 또는 섹터 호재로서 이 종목에 긍정적인 영향을 미칠 것으로 예상됩니다."
+                }
+            }
+        ]
+    });
+}
+// Fill the rest with random mock data to keep pagination working
+for (let i = 6; i <= 54; i++) {
     const company = COMPANIES[Math.floor(Math.random() * COMPANIES.length)];
     const template = NEWS_TEMPLATES[Math.floor(Math.random() * NEWS_TEMPLATES.length)];
-    const timeOffset = Math.floor(Math.random() * 48); // Random time within last 48 hours
+    const timeOffset = Math.floor(Math.random() * 48);
 
     const timestamp = new Date();
     timestamp.setHours(timestamp.getHours() - timeOffset);
