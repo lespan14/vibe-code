@@ -56,6 +56,20 @@ const NEWS_TEMPLATES = [
     }
 ];
 
+// Source URL Mapping
+const SOURCE_URLS = {
+    "Bloomberg": "https://www.bloomberg.com/markets",
+    "Reuters": "https://www.reuters.com/business",
+    "CNBC": "https://www.cnbc.com/world/",
+    "Yonhap": "https://en.yna.co.kr/market/index",
+    "The Verge": "https://www.theverge.com/tech",
+    "TechCrunch": "https://techcrunch.com/",
+    "Wall Street Journal": "https://www.wsj.com/news/markets",
+    "Financial Times": "https://www.ft.com/markets"
+};
+
+const SOURCES = Object.keys(SOURCE_URLS);
+
 // Generate 54 items
 for (let i = 1; i <= 54; i++) {
     const company = COMPANIES[Math.floor(Math.random() * COMPANIES.length)];
@@ -64,6 +78,8 @@ for (let i = 1; i <= 54; i++) {
 
     const timestamp = new Date();
     timestamp.setHours(timestamp.getHours() - timeOffset);
+    
+    const randomSource = SOURCES[Math.floor(Math.random() * SOURCES.length)];
 
     MOCK_NEWS.push({
         id: i,
@@ -71,8 +87,8 @@ for (let i = 1; i <= 54; i++) {
             en: `${company.name} ${template.titleEn}`,
             ko: `${company.name}, ${template.titleKo}`
         },
-        source: ["Bloomberg", "Reuters", "CNBC", "Yonhap", "The Verge"][Math.floor(Math.random() * 5)],
-        url: "https://www.google.com/search?q=" + encodeURIComponent(`${company.name} stock news`), // Mock Link
+        source: randomSource,
+        url: SOURCE_URLS[randomSource], // Link to the actual news site
         flag: company.market,
         timestamp: timestamp.toISOString(),
         summary: {
