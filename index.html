@@ -1,14 +1,97 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello World</title>
-  <link href='/style.css' rel='stylesheet'>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Insight - 주식 뉴스 요약 & 분석</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>Hello, world!</h1>
-  <button onclick="console.log('hello');">Press me</button>
-  <script defer type="text/javascript" src="/main.js"></script>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <span class="logo-icon">📈</span>
+                <h1>Stock Insight</h1>
+            </div>
+            <div class="market-info">
+                <button id="lang-toggle" class="lang-btn">🇺🇸 EN / 🇰🇷 KO</button>
+                <span class="update-badge">Last Updated: <span id="last-updated">--:--</span></span>
+                <span class="market-status">🇺🇸 US: <span class="status-open">Open</span></span>
+                <span class="market-status">🇰🇷 KR: <span class="status-closed">Closed</span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <div class="intro-text">
+            <h2>오늘의 주요 증시 뉴스</h2>
+            <p>12시간마다 업데이트되는 핵심 뉴스와 관련 수혜주를 확인하세요.</p>
+        </div>
+
+        <!-- News Grid -->
+        <div id="news-grid" class="news-grid">
+            <!-- News Cards will be injected here by JS -->
+        </div>
+    </main>
+
+    <!-- Stock Detail Modal -->
+    <div id="stock-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div class="modal-header">
+                <div class="stock-title-group">
+                    <h2 id="modal-stock-name">Apple Inc.</h2>
+                    <span id="modal-stock-ticker" class="ticker-badge">AAPL</span>
+                </div>
+                <div class="stock-price-group">
+                    <span id="modal-price" class="current-price">$185.00</span>
+                    <span id="modal-change" class="price-change positive">+1.2%</span>
+                </div>
+            </div>
+            
+            <div class="modal-body">
+                <div class="chart-placeholder">
+                    <!-- CSS-only simple chart visualization -->
+                    <div class="chart-bar" style="height: 40%"></div>
+                    <div class="chart-bar" style="height: 60%"></div>
+                    <div class="chart-bar" style="height: 50%"></div>
+                    <div class="chart-bar" style="height: 80%"></div>
+                    <div class="chart-bar" style="height: 70%"></div>
+                    <div class="chart-bar" style="height: 90%"></div>
+                </div>
+                
+                <div class="stock-info-grid">
+                    <div class="info-item">
+                        <label>시가총액</label>
+                        <span id="modal-market-cap">3000조</span>
+                    </div>
+                    <div class="info-item">
+                        <label>PER</label>
+                        <span id="modal-per">28.5</span>
+                    </div>
+                    <div class="info-item">
+                        <label>섹터</label>
+                        <span id="modal-sector">Technology</span>
+                    </div>
+                    <div class="info-item">
+                        <label>투자의견</label>
+                        <span id="modal-rating" class="rating-buy">매수 (Buy)</span>
+                    </div>
+                </div>
+
+                <div class="modal-description">
+                    <h3>기업 개요</h3>
+                    <p id="modal-desc">이 기업은 전 세계적으로 혁신적인 기술 제품을 설계, 제조 및 판매합니다.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="main.js"></script>
 </body>
 </html>
