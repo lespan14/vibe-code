@@ -58,11 +58,11 @@ const NEWS_TEMPLATES = [
 
 // Top 5 Reliable Financial News Sources
 const SOURCE_URLS = {
-    "Bloomberg": "https://www.bloomberg.com/markets",
-    "Reuters": "https://www.reuters.com/business/finance",
-    "Wall Street Journal": "https://www.wsj.com/finance",
+    "Bloomberg": "https://www.bloomberg.com/news/markets", // Updated to news list
+    "Reuters": "https://www.reuters.com/markets",
+    "Wall Street Journal": "https://www.wsj.com/news/markets", // Updated to news list
     "CNBC": "https://www.cnbc.com/finance/",
-    "Financial Times": "https://www.ft.com/markets"
+    "Financial Times": "https://www.ft.com/news/markets" // Updated to news list
 };
 
 const SOURCES = Object.keys(SOURCE_URLS);
