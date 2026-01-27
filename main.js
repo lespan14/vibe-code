@@ -18,35 +18,45 @@ const NEWS_TEMPLATES = [
         titleEn: "Report Q4 Earnings Beat Expectations",
         titleKo: "4분기 실적, 시장 예상치 상회",
         summaryEn: ["Revenue up 15% YoY.", "Strong demand in AI sector.", "Guidance raised for next year."],
-        summaryKo: ["매출 전년 대비 15% 증가.", "AI 부문 수요 강세.", "내년 가이던스 상향 조정."]
+        summaryKo: ["매출 전년 대비 15% 증가.", "AI 부문 수요 강세.", "내년 가이던스 상향 조정."],
+        deepEn: "The latest earnings report indicates a robust recovery in core sectors. Analysts point to the surge in AI-related infrastructure spending as the primary driver. With operating margins improving by 300 basis points, the company is well-positioned for aggressive R&D investment in the coming year.",
+        deepKo: "최근 실적 보고서는 핵심 부문의 강력한 회복세를 보여줍니다. 분석가들은 AI 관련 인프라 지출의 급증을 주요 원동력으로 꼽습니다. 영업 이익률이 300bp 개선됨에 따라, 회사는 내년에 공격적인 R&D 투자를 진행할 수 있는 유리한 위치에 있습니다."
     },
     {
         titleEn: "Announces Strategic Partnership with AI Startup",
         titleKo: "AI 스타트업과 전략적 파트너십 발표",
         summaryEn: ["Investing $500M in joint venture.", "New technology integration expected by Q3.", "Shares rise on the news."],
-        summaryKo: ["조인트 벤처에 5억 달러 투자.", "3분기까지 신기술 통합 예상.", "뉴스 발표 후 주가 상승."]
+        summaryKo: ["조인트 벤처에 5억 달러 투자.", "3분기까지 신기술 통합 예상.", "뉴스 발표 후 주가 상승."],
+        deepEn: "This strategic alliance aims to integrate cutting-edge generative AI models directly into the company's flagship hardware. By securing exclusive access to the startup's proprietary algorithms, they aim to differentiate their product line from competitors. Market sentiment is highly positive, expecting a new revenue stream.",
+        deepKo: "이번 전략적 제휴는 최첨단 생성형 AI 모델을 회사의 주력 하드웨어에 직접 통합하는 것을 목표로 합니다. 스타트업의 독점 알고리즘에 대한 독점 접근 권한을 확보함으로써 경쟁사와 제품 라인을 차별화할 계획입니다. 새로운 수익원에 대한 기대로 시장 반응은 매우 긍정적입니다."
     },
     {
         titleEn: "Faces Regulatory Scrutiny Over New Policy",
         titleKo: "새로운 정책으로 규제 당국 조사 직면",
         summaryEn: ["Antitrust concerns raised by officials.", "Potential fines could impact margins.", "Legal team preparing defense."],
-        summaryKo: ["당국 관계자들, 반독점 우려 제기.", "잠재적 벌금이 마진에 영향 줄 수 있음.", "법무팀 방어 준비 중."]
+        summaryKo: ["당국 관계자들, 반독점 우려 제기.", "잠재적 벌금이 마진에 영향 줄 수 있음.", "법무팀 방어 준비 중."],
+        deepEn: "Regulatory bodies have launched a probe into the company's recent pricing policy changes, citing potential anti-competitive behavior. If found guilty, fines could reach up to 5% of global turnover. The company maintains that the changes are standard industry practice and is prepared to challenge the findings in court.",
+        deepKo: "규제 당국은 최근 회사의 가격 정책 변경에 대해 잠재적인 반경쟁 행위를 이유로 조사를 착수했습니다. 유죄가 인정될 경우, 전 세계 매출의 최대 5%에 달하는 벌금이 부과될 수 있습니다. 회사는 이러한 변경이 업계 표준 관행이라고 주장하며 법정에서 결과에 이의를 제기할 준비가 되어 있습니다."
     },
     {
         titleEn: "Unveils Revolutionary Tech Product",
         titleKo: "혁신적인 기술 제품 공개",
         summaryEn: ["Industry-leading performance metrics.", "Pre-orders sell out in minutes.", "Analysts upgrade stock rating."],
-        summaryKo: ["업계 최고의 성능 지표.", "사전 예약 분 만에 매진.", "애널리스트들 주식 등급 상향."]
+        summaryKo: ["업계 최고의 성능 지표.", "사전 예약 분 만에 매진.", "애널리스트들 주식 등급 상향."],
+        deepEn: "The unveiling event showcased a device that significantly outperforms current market leaders in energy efficiency and processing power. Early pre-order data suggests demand is outstripping supply. Several major investment banks have subsequently raised their target price, citing the product as a 'game changer'.",
+        deepKo: "이번 공개 행사에서는 에너지 효율과 처리 능력 면에서 현재 시장 리더들을 크게 능가하는 기기가 선보였습니다. 초기 사전 예약 데이터는 수요가 공급을 초과하고 있음을 시사합니다. 여러 주요 투자 은행들은 이 제품을 '게임 체인저'로 언급하며 목표 주가를 상향 조정했습니다."
     },
     {
         titleEn: "CEO Outlines Vision for 2030",
         titleKo: "CEO, 2030년 비전 발표",
         summaryEn: ["Focus on sustainability and green energy.", "Expansion into European markets.", "Dividend payout ratio increased."],
-        summaryKo: ["지속 가능성과 친환경 에너지에 집중.", "유럽 시장으로의 확장.", "배당 성향 확대."]
+        summaryKo: ["지속 가능성과 친환경 에너지에 집중.", "유럽 시장으로의 확장.", "배당 성향 확대."],
+        deepEn: "In a shareholder letter, the CEO emphasized a pivot towards sustainable energy solutions as a core pillar of growth over the next decade. The plan includes a massive expansion into European markets and a commitment to return more value to shareholders through increased dividends and buybacks.",
+        deepKo: "주주 서한에서 CEO는 향후 10년 동안의 성장을 위한 핵심 축으로 지속 가능한 에너지 솔루션으로의 전환을 강조했습니다. 이 계획에는 유럽 시장으로의 대규모 확장과 배당금 증액 및 자사주 매입을 통해 주주들에게 더 많은 가치를 환원하겠다는 약속이 포함되어 있습니다."
     }
 ];
 
-// Generate 54 items (9 pages of 6)
+// Generate 54 items
 for (let i = 1; i <= 54; i++) {
     const company = COMPANIES[Math.floor(Math.random() * COMPANIES.length)];
     const template = NEWS_TEMPLATES[Math.floor(Math.random() * NEWS_TEMPLATES.length)];
@@ -67,6 +77,10 @@ for (let i = 1; i <= 54; i++) {
         summary: {
             en: template.summaryEn,
             ko: template.summaryKo
+        },
+        deep: {
+            en: template.deepEn,
+            ko: template.deepKo
         },
         relatedStocks: [
             { ticker: company.ticker, name: company.name, change: (Math.random() * 10 - 5).toFixed(1), price: (Math.random() * 500 + 50).toFixed(0) }
@@ -105,7 +119,9 @@ const UI_TEXT = {
         companyInfo: "기업 개요",
         source: "출처: ",
         prev: "이전",
-        next: "다음"
+        next: "다음",
+        deepDive: "🔍 AI 심층 분석 보기",
+        deepDiveHeader: "🤖 AI 심층 분석"
     },
     'en': {
         pageTitle: "Today's Top Market News",
@@ -121,7 +137,9 @@ const UI_TEXT = {
         companyInfo: "Company Overview",
         source: "Source: ",
         prev: "Prev",
-        next: "Next"
+        next: "Next",
+        deepDive: "🔍 AI Deep Dive",
+        deepDiveHeader: "🤖 AI Deep Analysis"
     }
 };
 
@@ -159,6 +177,9 @@ function applyLanguage() {
     document.querySelector('.intro-text p').textContent = texts.pageDesc;
     document.querySelector('.update-badge').innerHTML = `${texts.lastUpdated} <span id="last-updated">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>`;
     
+    // Update Modal Headers if open
+    document.querySelector('.ai-analysis-box h3').textContent = texts.deepDiveHeader;
+
     renderNews();
 }
 
@@ -206,8 +227,7 @@ function renderPagination(totalPages) {
     prevBtn.onclick = () => changePage(currentPage - 1);
     container.appendChild(prevBtn);
 
-    // Page Numbers (Show max 5 usually, but for now simple loop)
-    // Simple logic: Show all if <= 7, else show window around current
+    // Page Numbers logic
     let startPage = 1, endPage = totalPages;
     if (totalPages > 7) {
         if (currentPage <= 4) {
@@ -269,7 +289,7 @@ function createNewsCard(news) {
             <span class="news-flag">${news.flag}</span>
             <span class="news-time">${new Date(news.timestamp).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}</span>
         </div>
-        <h3 class="news-title">${title}</h3>
+        <h3 class="news-title" onclick="openNewsModal(${news.id})">${title}</h3>
         <span class="news-source">${texts.source}${news.source}</span>
         
         <div class="summary-box">
@@ -278,6 +298,8 @@ function createNewsCard(news) {
                 ${summaryItems}
             </ul>
         </div>
+
+        <button class="detail-btn" onclick="openNewsModal(${news.id})">${texts.deepDive}</button>
 
         <div class="related-section">
             <span class="related-label">${texts.affectedStocks}</span>
@@ -288,9 +310,11 @@ function createNewsCard(news) {
     return card;
 }
 
+// --- Modals ---
+
 window.openStockModal = function(ticker, name, price, change) {
     const modal = document.getElementById('stock-modal');
-    // Basic Fallback for details to keep code simple with expanded mock list
+    // Basic Fallback
     let details = STOCK_DETAILS[ticker];
     if (!details) details = STOCK_DETAILS["DEFAULT"];
     
@@ -323,15 +347,42 @@ window.openStockModal = function(ticker, name, price, change) {
     modal.classList.remove('hidden');
 };
 
-window.closeModal = function() {
+window.openNewsModal = function(id) {
+    const news = MOCK_NEWS.find(n => n.id === id);
+    if (!news) return;
+
+    const modal = document.getElementById('news-modal');
+    const texts = UI_TEXT[currentLang];
+
+    // Populate
+    document.getElementById('news-modal-flag').textContent = news.flag;
+    document.getElementById('news-modal-date').textContent = new Date(news.timestamp).toLocaleString();
+    document.getElementById('news-modal-title').textContent = news.title[currentLang];
+    
+    document.getElementById('news-modal-body').textContent = news.deep[currentLang];
+    
+    document.querySelector('.ai-analysis-box h3').textContent = texts.deepDiveHeader;
+
+    modal.classList.remove('hidden');
+}
+
+window.closeStockModal = function() {
     document.getElementById('stock-modal').classList.add('hidden');
+};
+
+window.closeNewsModal = function() {
+    document.getElementById('news-modal').classList.add('hidden');
 };
 
 function setupEventListeners() {
     window.onclick = function(event) {
-        const modal = document.getElementById('stock-modal');
-        if (event.target == modal) {
-            closeModal();
+        const stockModal = document.getElementById('stock-modal');
+        const newsModal = document.getElementById('news-modal');
+        if (event.target == stockModal) {
+            closeStockModal();
+        }
+        if (event.target == newsModal) {
+            closeNewsModal();
         }
     }
 
