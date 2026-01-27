@@ -397,8 +397,72 @@ window.openStockModal = function(newsId, ticker) {
     document.querySelector('.modal-description h3').textContent = texts.companyInfo;
     document.getElementById('modal-rating').textContent = texts.buy;
 
+    // Render Chart
+    renderTradingViewWidget(ticker);
+
     modal.classList.remove('hidden');
 };
+
+function renderTradingViewWidget(ticker) {
+    const container = document.getElementById('tradingview-widget-container');
+    container.innerHTML = ''; // Clear previous widget
+
+    // Map internal ticker to TradingView symbol format
+    let symbol = ticker;
+    if (ticker.endsWith('.KS')) {
+        symbol = `KRX:${ticker.replace('.KS', '')}`; // e.g. 005930.KS -> KRX:005930
+    } else {
+        symbol = `NASDAQ:${ticker}`; // Default assumption for US stocks (Simplification)
+        // Refinement: Some might be NYSE, but for this mock data NASDAQ covers tech giants mostly.
+        if (['UPS', 'NYSE:UPS'].includes(ticker)) symbol = 'NYSE:UPS'; // Manual override example if needed
+    }
+
+    const script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = 'https://s3.tradingview.com/external-embedding/embed-widget-symbol-overview.js';
+    script.async = true;
+    script.innerHTML = JSON.stringify({
+        "symbols": [
+            [
+                symbol + "|1D"
+            ]
+        ],
+        "chartOnly": false,
+        "width": "100%",
+        "height": "100%",
+        "locale": currentLang === 'ko' ? 'kr' : 'en',
+        "colorTheme": "light",
+        "autosize": true,
+        "showVolume": false,
+        "showMA": false,
+        "hideDateRanges": false,
+        "hideMarketStatus": false,
+        "hideSymbolLogo": false,
+        "scalePosition": "right",
+        "scaleMode": "Normal",
+        "fontFamily": "-apple-system, BlinkMacSystemFont, Trebuchet MS, Roboto, Ubuntu, sans-serif",
+        "fontSize": "10",
+        "noTimeScale": false,
+        "valuesTracking": "1",
+        "changeMode": "price-and-percent",
+        "chartType": "area",
+        "maLineColor": "#2962FF",
+        "maLineWidth": 1,
+        "maLength": 9,
+        "lineWidth": 2,
+        "lineType": 0,
+        "dateRanges": [
+            "1d|1",
+            "1m|30",
+            "3m|60",
+            "12m|1D",
+            "60m|1W",
+            "all|1M"
+        ]
+    });
+    
+    container.appendChild(script);
+}
 
 window.openNewsModal = function(id) {
     const news = MOCK_NEWS.find(n => n.id === id);
