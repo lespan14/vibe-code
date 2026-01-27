@@ -234,7 +234,8 @@ const UI_TEXT = {
         deepDive: "🔍 AI 심층 분석 보기",
         deepDiveHeader: "🤖 AI 심층 분석",
         viewOriginal: "뉴스 원문 보기 🔗",
-        beneficiaryTitle: "💡 왜 이 종목이 수혜주인가요?"
+        beneficiaryTitle: "💡 왜 이 종목이 수혜주인가요?",
+        searchPlaceholder: "뉴스 제목 또는 종목 검색 (예: Apple, AAPL)..."
     },
     'en': {
         pageTitle: "Today's Top Market News",
@@ -254,9 +255,12 @@ const UI_TEXT = {
         deepDive: "🔍 AI Deep Dive",
         deepDiveHeader: "🤖 AI Deep Analysis",
         viewOriginal: "View Original News 🔗",
-        beneficiaryTitle: "💡 Why is this stock affected?"
+        beneficiaryTitle: "💡 Why is this stock affected?",
+        searchPlaceholder: "Search news or tickers (e.g., Apple, AAPL)..."
     }
 };
+
+let filteredNews = []; // Store filtered results
 
 document.addEventListener('DOMContentLoaded', () => {
     // Check URL param for page
@@ -265,6 +269,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (pageParam && pageParam > 0) {
         currentPage = pageParam;
     }
+
+    // Initialize filteredNews with all news initially
+    // Note: MOCK_NEWS is populated in the global scope loop above
+    filteredNews = [...MOCK_NEWS];
 
     initApp();
 });
@@ -291,6 +299,7 @@ function applyLanguage() {
     document.querySelector('.intro-text h2').textContent = texts.pageTitle;
     document.querySelector('.intro-text p').textContent = texts.pageDesc;
     document.querySelector('.update-badge').innerHTML = `${texts.lastUpdated} <span id="last-updated">${new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>`;
+    document.getElementById('search-input').placeholder = texts.searchPlaceholder;
     
     // Update Modal Headers if open
     document.querySelector('.ai-analysis-box h3').textContent = texts.deepDiveHeader;
@@ -298,25 +307,49 @@ function applyLanguage() {
     renderNews();
 }
 
+function handleSearch(e) {
+    const query = e.target.value.toLowerCase();
+    
+    if (!query) {
+        filteredNews = [...MOCK_NEWS];
+    } else {
+        filteredNews = MOCK_NEWS.filter(news => {
+            const title = news.title[currentLang].toLowerCase();
+            const tickerMatch = news.relatedStocks.some(s => 
+                s.ticker.toLowerCase().includes(query) || 
+                s.name.toLowerCase().includes(query)
+            );
+            return title.includes(query) || tickerMatch;
+        });
+    }
+    
+    currentPage = 1; // Reset to page 1 on search
+    renderNews();
+}
+
 function renderNews() {
     const grid = document.getElementById('news-grid');
     grid.innerHTML = ''; 
 
-    // Pagination Logic
-    const totalPages = Math.ceil(MOCK_NEWS.length / ITEMS_PER_PAGE);
+    // Pagination Logic (Use filteredNews instead of MOCK_NEWS)
+    const totalPages = Math.ceil(filteredNews.length / ITEMS_PER_PAGE);
     
     // Bounds check
     if (currentPage < 1) currentPage = 1;
-    if (currentPage > totalPages) currentPage = totalPages;
+    if (currentPage > totalPages && totalPages > 0) currentPage = totalPages;
 
     const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
     const endIndex = startIndex + ITEMS_PER_PAGE;
-    const currentItems = MOCK_NEWS.slice(startIndex, endIndex);
+    const currentItems = filteredNews.slice(startIndex, endIndex);
 
-    currentItems.forEach(news => {
-        const card = createNewsCard(news);
-        grid.appendChild(card);
-    });
+    if (filteredNews.length === 0) {
+        grid.innerHTML = `<p style="text-align:center; grid-column: 1/-1; color: #888;">No results found.</p>`;
+    } else {
+        currentItems.forEach(news => {
+            const card = createNewsCard(news);
+            grid.appendChild(card);
+        });
+    }
 
     renderPagination(totalPages);
     
@@ -588,4 +621,7 @@ function setupEventListeners() {
     }
 
     document.getElementById('lang-toggle').addEventListener('click', toggleLanguage);
+    
+    // Search Listener
+    document.getElementById('search-input').addEventListener('input', handleSearch);
 }
