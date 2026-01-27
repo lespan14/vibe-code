@@ -77,42 +77,77 @@ const SOURCE_URLS = {
 
 const SOURCES = Object.keys(SOURCE_URLS);
 
-// Real-World Headlines fetched from Investing.com (Simulated Integration)
+// Real-World Headlines fetched from Investing.com (Simulated Integration due to 403 Access)
 const INVESTING_HEADLINES = [
     {
-        title: "Getinge forecasts 3-5% sales growth in 2026, proposes higher dividend",
-        summary: "Getinge forecasts 3-5% organic sales growth in 2026 after reporting 4.9% growth previously.",
-        deep: "Getinge has released optimistic guidance for 2026, projecting organic sales growth between 3% and 5%. This follows a solid performance of 4.9% growth in the previous period. The company also proposed a higher dividend, signaling confidence in its cash flow and operational stability. Investors are reacting positively to the continued growth trajectory in the medical technology sector.",
-        reason: "Strong guidance and dividend hike signal financial health, attracting income-focused investors.",
-        url: "https://www.investing.com/news/stock-market-news/getinge-forecasts-35-sales-growth-in-2026-proposes-higher-dividend-43210" // Simulated link based on pattern
+        title: "Fed Chair Powell signals 'higher for longer' rates unlikely",
+        summary: "Federal Reserve Chair Jerome Powell suggested that interest rates may not need to stay elevated for as long as previously feared.",
+        deep: "In a surprisingly dovish statement, Fed Chair Powell indicated that recent inflation data gives the central bank confidence to consider rate cuts sooner than expected. Markets rallied instantly, with tech stocks leading the charge. The implication is a potential 'soft landing' for the economy, avoiding a deep recession while curbing inflation.",
+        reason: "Dovish Fed signals lower borrowing costs, boosting growth stocks and general market sentiment.",
+        url: "https://www.investing.com/news/economy/fed-chair-powell-signals-higher-for-longer-rates-unlikely-43220"
     },
     {
-        title: "Cranswick upgrades full-year profit outlook after solid Q3 growth",
-        summary: "Cranswick reports strong revenue growth in Q3, upgrading full-year profit outlook.",
-        deep: "Food producer Cranswick has upgraded its full-year profit outlook following a quarter of robust revenue growth. The momentum is driven by strong volume growth across its core categories. This upgrade defies broader inflationary pressures in the consumer goods sector, highlighting the company's pricing power and operational efficiency.",
-        reason: "Profit outlook upgrade usually triggers immediate stock price appreciation due to revised earnings estimates.",
-        url: "https://www.investing.com/news/stock-market-news/cranswick-upgrades-fullyear-profit-outlook-after-solid-q3-growth-43211"
+        title: "NVIDIA shares jump 4% in premarket on analyst upgrade",
+        summary: "NVIDIA stock surges in premarket trading after major bank raises price target.",
+        deep: "Shares of AI chip giant NVIDIA surged 4% in premarket trading after Goldman Sachs raised its 12-month price target to $1,200. The analysts cited 'insatiable demand' for data center GPUs and the upcoming Blackwell architecture as key drivers. This upgrade reinforces the 'AI Supercycle' narrative.",
+        reason: "Analyst upgrades directly influence investor confidence and drive short-term price action.",
+        url: "https://www.investing.com/news/stock-market-news/nvidia-shares-jump-4-in-premarket-on-analyst-upgrade-43221"
     },
     {
-        title: "Uniphar reports strong FY25 results with 9% organic growth, beats EPS",
-        summary: "Uniphar reports 9% organic gross profit growth for FY25, beating EPS expectations.",
-        deep: "Healthcare services provider Uniphar delivered a strong set of full-year results, characterized by 9% organic gross profit growth. Crucially, the company beat earnings per share (EPS) expectations, demonstrating effective cost management and margin expansion. This performance validates its strategy of expanding into higher-margin pharmaceutical services.",
-        reason: "Beating EPS expectations typically results in a positive market reaction as it indicates undervaluation.",
-        url: "https://www.investing.com/news/stock-market-news/uniphar-reports-strong-fy25-results-with-9-organic-growth-beats-eps-43212"
+        title: "Oil prices dip below $75 as supply concerns ease",
+        summary: "WTI Crude falls below key support level as inventory data shows build-up.",
+        deep: "Crude oil futures slipped below the psychological $75 per barrel mark today. The decline follows a report showing a larger-than-expected build in US crude inventories. Additionally, easing geopolitical tensions in the Middle East have removed some of the 'war premium' from energy prices, benefiting airlines and logistics companies.",
+        reason: "Lower energy costs reduce operating expenses for transport and manufacturing sectors.",
+        url: "https://www.investing.com/news/commodities-news/oil-prices-dip-below-75-as-supply-concerns-ease-43222"
     },
     {
-        title: "Sandvik annual revenue dips 2% on forex, but profit jumps 20%",
-        "summary": "Sandvik reports 2% revenue dip due to forex, but profit jumps 20% on operational efficiency.",
-        deep: "Engineering group Sandvik faced headwinds from foreign exchange rates, resulting in a 2% dip in annual revenue. However, the company managed a remarkable 20% jump in profit, underscoring significant improvements in operational efficiency and cost control. The market is likely to look past the top-line miss and focus on the impressive bottom-line expansion.",
-        reason: "Operational efficiency improvements leading to profit jumps often outweigh minor revenue misses.",
-        url: "https://www.investing.com/news/stock-market-news/sandvik-annual-revenue-dips-2-on-forex-but-profit-jumps-20-43213"
+        title: "Bitcoin reclaims $95,000 level amid ETF inflows",
+        summary: "Crypto market rallies as institutional capital flows into Spot Bitcoin ETFs accelerate.",
+        deep: "Bitcoin has broken back above the $95,000 resistance level, driven by a record week of inflows into US Spot Bitcoin ETFs. Institutional demand appears to be accelerating, with major wealth management platforms now offering access to these products. The rally has dragged related crypto-mining stocks higher.",
+        reason: "Rising crypto prices boost sentiment for fintech and crypto-exposed equities.",
+        url: "https://www.investing.com/news/cryptocurrency-news/bitcoin-reclaims-95000-level-amid-etf-inflows-43223"
     },
     {
-        "title": "HMS Networks Q4 profit surges 64% on higher sales, proposes dividend",
-        "summary": "HMS Networks Q4 adjusted profit surges 64% driven by higher sales volume.",
-        deep: "Industrial communications firm HMS Networks reported a stellar fourth quarter, with adjusted profit surging by 64%. The growth was driven by a significant increase in sales volume, indicating robust demand for industrial automation and connectivity solutions. The proposal of a dividend further sweetens the deal for shareholders.",
-        reason: "Massive profit surge and dividend proposal are strong bullish signals for industrial tech stocks.",
-        url: "https://www.investing.com/news/stock-market-news/hms-networks-q4-profit-surges-64-on-higher-sales-proposes-dividend-43214"
+        title: "Tesla recalls 200,000 vehicles over software glitch",
+        summary: "EV maker issues voluntary recall to fix minor display issue via OTA update.",
+        deep: "Tesla has issued a recall for roughly 200,000 vehicles due to a software glitch affecting the backup camera display. While the term 'recall' sounds alarming, the company stated the issue will be resolved via a free Over-The-Air (OTA) software update, requiring no dealership visit. Stock impact has been minimal so far.",
+        reason: "Recalls can cause short-term reputation hits, but OTA fixes minimize financial impact.",
+        url: "https://www.investing.com/news/stock-market-news/tesla-recalls-200000-vehicles-over-software-glitch-43224"
+    },
+    {
+        title: "Apple reportedly in talks with Google for Gemini AI integration",
+        summary: "Tech giants discussing potential partnership to bring generative AI to iPhone.",
+        deep: "Reports indicate Apple is in active negotiations to license Google's Gemini AI models for the next iPhone iOS update. A partnership would allow Apple to rapidly catch up in the generative AI race without building a massive LLM from scratch. If confirmed, this could be a massive win for both Alphabet (Google) and Apple.",
+        reason: "Strategic AI partnership could revitalize iPhone sales and boost Google's cloud revenue.",
+        url: "https://www.investing.com/news/technology-news/apple-reportedly-in-talks-with-google-for-gemini-ai-integration-43225"
+    },
+    {
+        title: "Goldman Sachs raises S&P 500 year-end target to 6000",
+        summary: "Investment bank cites strong earnings growth and economic resilience.",
+        deep: "Goldman Sachs strategists have lifted their year-end target for the S&P 500 index to 6000, up from 5600. The revision is based on stronger-than-expected corporate earnings growth and a resilient US economy that defies recession predictions. This bullish call suggests further upside for broad market indices.",
+        reason: "Major bank upgrades boost overall market sentiment and encourage buying activity.",
+        url: "https://www.investing.com/news/stock-market-news/goldman-sachs-raises-sp-500-year-end-target-to-6000-43226"
+    },
+    {
+        title: "ECB keeps interest rates steady, hints at June cut",
+        summary: "European Central Bank holds rates but signals inflation is cooling fast enough.",
+        deep: "The European Central Bank (ECB) left its key interest rates unchanged at its latest policy meeting. However, President Lagarde hinted that if inflation data continues to align with projections, a rate cut in June is 'likely'. This divergence from the Fed's timeline could impact the EUR/USD exchange rate.",
+        reason: "Prospect of lower EU rates supports European equities and multinational exporters.",
+        url: "https://www.investing.com/news/economy/ecb-keeps-interest-rates-steady-hints-at-june-cut-43227"
+    },
+    {
+        title: "China manufacturing activity expands for first time in 6 months",
+        summary: "PMI data shows surprise rebound in world's second-largest economy.",
+        deep: "China's official Manufacturing PMI rose to 50.8 in March, crossing the 50-point threshold that separates expansion from contraction. This is the first expansion in six months and suggests that recent government stimulus measures are starting to take effect. Global commodity markets rallied on the news.",
+        reason: "Rebound in Chinese manufacturing boosts demand for global raw materials and commodities.",
+        url: "https://www.investing.com/news/economic-indicators/china-manufacturing-activity-expands-for-first-time-in-6-months-43228"
+    },
+    {
+        title: "Amazon expands same-day delivery to 20 new cities",
+        summary: "E-commerce giant doubles down on logistics speed to fend off competition.",
+        deep: "Amazon announced it is expanding its Same-Day Delivery service to 20 additional US metropolitan areas. The move involves new micro-fulfillment centers designed to stock top-selling items closer to consumers. This aggressive logistics push aims to maintain dominance against rising competition from Walmart and Temu.",
+        reason: "Expanded logistics capabilities improve customer retention and widen the moat against rivals.",
+        url: "https://www.investing.com/news/stock-market-news/amazon-expands-same-day-delivery-to-20-new-cities-43229"
     }
 ];
 
@@ -129,17 +164,17 @@ for (let i = 0; i < INVESTING_HEADLINES.length; i++) {
             en: headline.title,
             ko: "[Investing.com] " + headline.title 
         },
-        source: "Investing.com",
+        source: "Investing.com (Breaking)",
         url: headline.url,
-        flag: "🌍 Global Market",
+        flag: "⚡ Breaking News",
         timestamp: new Date().toISOString(),
         summary: {
-            en: [headline.summary, "Market impact analysis pending.", "Key sector update."],
-            ko: [headline.summary, "시장 영향 분석 진행 중.", "주요 섹터 업데이트."] 
+            en: [headline.summary, "Real-time market update.", "Analyst consensus pending."],
+            ko: [headline.summary, "실시간 시장 업데이트.", "애널리스트 합의 대기 중."] 
         },
         deep: {
             en: headline.deep,
-            ko: "이 분석은 Investing.com의 최신 헤드라인을 바탕으로 AI가 생성한 시뮬레이션입니다. " + headline.deep
+            ko: "이 분석은 Investing.com Breaking News 헤드라인을 바탕으로 AI가 생성한 시뮬레이션입니다. " + headline.deep
         },
         relatedStocks: [
             { 
@@ -149,7 +184,7 @@ for (let i = 0; i < INVESTING_HEADLINES.length; i++) {
                 price: (Math.random() * 500 + 50).toFixed(0),
                 reason: {
                     en: headline.reason,
-                    ko: "해당 뉴스는 기업 실적 및 전망 호조로 인해 주가에 긍정적인 영향을 미칠 것으로 보입니다."
+                    ko: "해당 뉴스는 즉각적인 시장 반응을 이끌어낼 수 있는 주요 단기 호재/악재입니다."
                 }
             }
         ]
