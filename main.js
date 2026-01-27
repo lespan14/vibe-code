@@ -72,6 +72,7 @@ for (let i = 1; i <= 54; i++) {
             ko: `${company.name}, ${template.titleKo}`
         },
         source: ["Bloomberg", "Reuters", "CNBC", "Yonhap", "The Verge"][Math.floor(Math.random() * 5)],
+        url: "https://www.google.com/search?q=" + encodeURIComponent(`${company.name} stock news`), // Mock Link
         flag: company.market,
         timestamp: timestamp.toISOString(),
         summary: {
@@ -121,7 +122,8 @@ const UI_TEXT = {
         prev: "이전",
         next: "다음",
         deepDive: "🔍 AI 심층 분석 보기",
-        deepDiveHeader: "🤖 AI 심층 분석"
+        deepDiveHeader: "🤖 AI 심층 분석",
+        viewOriginal: "뉴스 원문 보기 🔗"
     },
     'en': {
         pageTitle: "Today's Top Market News",
@@ -139,7 +141,8 @@ const UI_TEXT = {
         prev: "Prev",
         next: "Next",
         deepDive: "🔍 AI Deep Dive",
-        deepDiveHeader: "🤖 AI Deep Analysis"
+        deepDiveHeader: "🤖 AI Deep Analysis",
+        viewOriginal: "View Original News 🔗"
     }
 };
 
@@ -362,6 +365,12 @@ window.openNewsModal = function(id) {
     document.getElementById('news-modal-body').textContent = news.deep[currentLang];
     
     document.querySelector('.ai-analysis-box h3').textContent = texts.deepDiveHeader;
+
+    // Footer Info
+    document.getElementById('news-modal-source').textContent = texts.source + news.source;
+    const linkBtn = document.getElementById('news-modal-link');
+    linkBtn.textContent = texts.viewOriginal;
+    linkBtn.href = news.url;
 
     modal.classList.remove('hidden');
 }
