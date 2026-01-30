@@ -10,7 +10,8 @@ const COMPANIES = [
     { name: "Microsoft", ticker: "MSFT", market: "🇺🇸 US Market" },
     { name: "LG Energy Sol", ticker: "373220.KS", market: "🇰🇷 KR Market" },
     { name: "Google", ticker: "GOOGL", market: "🇺🇸 US Market" },
-    { name: "Kakao", ticker: "035720.KS", market: "🇰🇷 KR Market" }
+    { name: "Kakao", ticker: "035720.KS", market: "🇰🇷 KR Market" },
+    { name: "Marathon Digital", ticker: "MARA", market: "🇺🇸 US Market" } // Added crypto miner
 ];
 
 const NEWS_TEMPLATES = [
@@ -155,7 +156,20 @@ const INVESTING_HEADLINES = [
 MOCK_NEWS.length = 0; // Clear existing
 for (let i = 0; i < INVESTING_HEADLINES.length; i++) {
     const headline = INVESTING_HEADLINES[i];
-    const company = COMPANIES[Math.floor(Math.random() * COMPANIES.length)]; // Assign random company for demo
+    let company;
+
+    // Smart assignment based on headline content
+    if (headline.title.toLowerCase().includes('bitcoin')) {
+        company = COMPANIES.find(c => c.ticker === 'MARA');
+    } else if (headline.title.toLowerCase().includes('nvidia')) {
+        company = COMPANIES.find(c => c.ticker === 'NVDA');
+    } else if (headline.title.toLowerCase().includes('tesla')) {
+        company = COMPANIES.find(c => c.ticker === 'TSLA');
+    } else if (headline.title.toLowerCase().includes('apple')) {
+        company = COMPANIES.find(c => c.ticker === 'AAPL');
+    } else {
+        company = COMPANIES[Math.floor(Math.random() * COMPANIES.length)]; // Fallback to random
+    }
     
     // Simulate bilingual content
     MOCK_NEWS.push({
@@ -176,8 +190,9 @@ for (let i = 0; i < INVESTING_HEADLINES.length; i++) {
             en: headline.deep,
             ko: "이 분석은 Investing.com Breaking News 헤드라인을 바탕으로 AI가 생성한 시뮬레이션입니다. " + headline.deep
         },
-        relatedStocks: [
+        relatedAssets: [
             { 
+                type: 'stock',
                 ticker: company.ticker, 
                 name: company.name, 
                 change: (Math.random() * 5 + 1).toFixed(1), 
@@ -190,8 +205,37 @@ for (let i = 0; i < INVESTING_HEADLINES.length; i++) {
         ]
     });
 }
+// Special case for Bitcoin news
+const btcNews = MOCK_NEWS.find(n => n.title.en.toLowerCase().includes('bitcoin'));
+if (btcNews) {
+    btcNews.relatedAssets = [
+        {
+            type: 'coin',
+            ticker: 'BTC',
+            name: 'Bitcoin',
+            change: (Math.random() * 10 - 2).toFixed(1),
+            price: '95,123',
+            reason: {
+                en: "Bitcoin price is directly impacted by ETF inflows and institutional demand.",
+                ko: "비트코인 가격은 ETF 자금 유입과 기관 수요에 직접적인 영향을 받습니다."
+            }
+        },
+        {
+            type: 'stock',
+            ticker: 'MARA',
+            name: 'Marathon Digital',
+            change: (Math.random() * 15 + 1).toFixed(1),
+            price: '25.50',
+            reason: {
+                en: "As a major Bitcoin miner, Marathon's profitability is highly correlated with BTC price movements.",
+                ko: "주요 비트코인 채굴 기업으로서, 마라톤 디지털의 수익성은 BTC 가격 변동과 높은 상관관계를 가집니다."
+            }
+        }
+    ];
+}
+
 // Fill the rest with random mock data to keep pagination working
-for (let i = 6; i <= 54; i++) {
+for (let i = MOCK_NEWS.length; i <= 54; i++) {
     const company = COMPANIES[Math.floor(Math.random() * COMPANIES.length)];
     const template = NEWS_TEMPLATES[Math.floor(Math.random() * NEWS_TEMPLATES.length)];
     const timeOffset = Math.floor(Math.random() * 48);
@@ -219,8 +263,9 @@ for (let i = 6; i <= 54; i++) {
             en: template.deepEn,
             ko: template.deepKo
         },
-        relatedStocks: [
+        relatedAssets: [
             { 
+                type: 'stock',
                 ticker: company.ticker, 
                 name: company.name, 
                 change: (Math.random() * 10 - 5).toFixed(1), 
@@ -306,9 +351,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Initialize filteredNews with all news initially
-    // Note: MOCK_NEWS is populated in the global scope loop above
     filteredNews = [...MOCK_NEWS];
 
+    initTheme(); // Initialize theme
     initApp();
 });
 
@@ -350,9 +395,9 @@ function handleSearch(e) {
     } else {
         filteredNews = MOCK_NEWS.filter(news => {
             const title = news.title[currentLang].toLowerCase();
-            const tickerMatch = news.relatedStocks.some(s => 
-                s.ticker.toLowerCase().includes(query) || 
-                s.name.toLowerCase().includes(query)
+            const tickerMatch = news.relatedAssets.some(a => 
+                a.ticker.toLowerCase().includes(query) || 
+                a.name.toLowerCase().includes(query)
             );
             return title.includes(query) || tickerMatch;
         });
@@ -456,13 +501,23 @@ function createNewsCard(news) {
     const summaryLines = news.summary[currentLang];
     const summaryItems = summaryLines.map(line => `<li>${line}</li>`).join('');
 
-    const stockButtons = news.relatedStocks.map(stock => {
-        const trendClass = stock.change >= 0 ? 'trend-up' : 'trend-down';
-        const arrow = stock.change >= 0 ? '▲' : '▼';
+    const assetButtons = news.relatedAssets.map(asset => {
+        const trendClass = asset.change >= 0 ? 'trend-up' : 'trend-down';
+        const arrow = asset.change >= 0 ? '▲' : '▼';
+        
+        if (asset.type === 'coin') {
+            return `
+                <button class="coin-btn" onclick="openAssetModal(${news.id}, '${asset.ticker}')">
+                    <span class="asset-ticker">${asset.ticker}</span>
+                    <span class="${trendClass}">${arrow} ${Math.abs(asset.change)}%</span>
+                </button>
+            `;
+        }
+        // Default to stock button
         return `
-            <button class="stock-btn" onclick="openStockModal(${news.id}, '${stock.ticker}')">
-                <span class="stock-ticker">${stock.ticker}</span>
-                <span class="${trendClass}">${arrow} ${Math.abs(stock.change)}%</span>
+            <button class="stock-btn" onclick="openAssetModal(${news.id}, '${asset.ticker}')">
+                <span class="asset-ticker">${asset.ticker}</span>
+                <span class="${trendClass}">${arrow} ${Math.abs(asset.change)}%</span>
             </button>
         `;
     }).join('');
@@ -486,7 +541,7 @@ function createNewsCard(news) {
 
         <div class="related-section">
             <span class="related-label">${texts.affectedStocks}</span>
-            ${stockButtons}
+            ${assetButtons}
         </div>
     `;
 
@@ -495,72 +550,80 @@ function createNewsCard(news) {
 
 // --- Modals ---
 
-window.openStockModal = function(newsId, ticker) {
+window.openAssetModal = function(newsId, ticker) {
     const modal = document.getElementById('stock-modal');
-    
-    // Find the news item
     const news = MOCK_NEWS.find(n => n.id === newsId);
     if (!news) return;
 
-    // Find the specific stock within that news item
-    const stock = news.relatedStocks.find(s => s.ticker === ticker);
-    if (!stock) return;
+    const asset = news.relatedAssets.find(a => a.ticker === ticker);
+    if (!asset) return;
 
-    // Basic Fallback for general company details
-    let details = STOCK_DETAILS[ticker];
-    if (!details) details = STOCK_DETAILS["DEFAULT"];
-    
     const texts = UI_TEXT[currentLang];
-
-    document.getElementById('modal-stock-name').textContent = stock.name;
+    
+    // Set common values first
+    document.getElementById('modal-stock-name').textContent = asset.name;
     document.getElementById('modal-stock-ticker').textContent = ticker;
-    document.getElementById('modal-price').textContent = (ticker.includes('.KS') ? '₩' : '$') + parseInt(stock.price).toLocaleString();
+    document.getElementById('modal-price').textContent = (asset.type === 'stock' && asset.ticker.includes('.KS')) ? '₩' + asset.price : '$' + asset.price;
     
     const changeEl = document.getElementById('modal-change');
-    const change = parseFloat(stock.change);
+    const change = parseFloat(asset.change);
     changeEl.textContent = (change >= 0 ? '+' : '') + change + '%';
     changeEl.className = 'price-change ' + (change >= 0 ? 'positive' : 'negative');
-
-    document.getElementById('modal-market-cap').textContent = details.marketCap;
-    document.getElementById('modal-per').textContent = details.per;
-    document.getElementById('modal-sector').textContent = details.sector;
     
-    const descText = (typeof details.desc === 'object') ? details.desc[currentLang] : details.desc;
-    document.getElementById('modal-desc').textContent = descText;
-
-    // Populate Beneficiary Analysis
+    // Beneficiary analysis
     const beneficiarySection = document.getElementById('beneficiary-analysis-section');
     beneficiarySection.querySelector('h3').textContent = texts.beneficiaryTitle;
-    document.getElementById('modal-beneficiary-reason').textContent = stock.reason[currentLang];
+    document.getElementById('modal-beneficiary-reason').textContent = asset.reason[currentLang];
 
+    const stockInfoGrid = document.querySelector('.stock-info-grid');
+    const companyDescription = document.querySelector('.modal-description');
 
-    // Update Modal Labels
-    const labels = document.querySelectorAll('.info-item label');
-    labels[0].textContent = texts.marketCap;
-    labels[1].textContent = texts.per;
-    labels[2].textContent = texts.sector;
-    labels[3].textContent = texts.rating;
-    document.querySelector('.modal-description h3').textContent = texts.companyInfo;
-    document.getElementById('modal-rating').textContent = texts.buy;
+    if (asset.type === 'coin') {
+        // Hide stock-specific sections
+        stockInfoGrid.style.display = 'none';
+        companyDescription.style.display = 'none';
+    } else {
+        // Show stock-specific sections and populate data
+        stockInfoGrid.style.display = 'grid';
+        companyDescription.style.display = 'block';
 
-    // Render Chart
-    renderTradingViewWidget(ticker);
+        let details = STOCK_DETAILS[ticker] || STOCK_DETAILS["DEFAULT"];
+        
+        document.getElementById('modal-market-cap').textContent = details.marketCap;
+        document.getElementById('modal-per').textContent = details.per;
+        document.getElementById('modal-sector').textContent = details.sector;
+        
+        const descText = (typeof details.desc === 'object') ? details.desc[currentLang] : details.desc;
+        document.getElementById('modal-desc').textContent = descText;
 
+        // Update Modal Labels for stocks
+        const labels = document.querySelectorAll('.info-item label');
+        labels[0].textContent = texts.marketCap;
+        labels[1].textContent = texts.per;
+        labels[2].textContent = texts.sector;
+        labels[3].textContent = texts.rating;
+        document.querySelector('.modal-description h3').textContent = texts.companyInfo;
+        document.getElementById('modal-rating').textContent = texts.buy;
+    }
+
+    renderTradingViewWidget(asset.ticker, asset.type);
     modal.classList.remove('hidden');
 };
 
-function renderTradingViewWidget(ticker) {
+function renderTradingViewWidget(ticker, type) {
     const container = document.getElementById('tradingview-widget-container');
     container.innerHTML = ''; // Clear previous widget
 
-    // Map internal ticker to TradingView symbol format
-    let symbol = ticker;
-    if (ticker.endsWith('.KS')) {
-        symbol = `KRX:${ticker.replace('.KS', '')}`; // e.g. 005930.KS -> KRX:005930
+    let symbol;
+    if (type === 'coin') {
+        symbol = `BINANCE:${ticker}USDT`; // e.g., BINANCE:BTCUSDT
     } else {
-        symbol = `NASDAQ:${ticker}`; // Default assumption for US stocks (Simplification)
-        // Refinement: Some might be NYSE, but for this mock data NASDAQ covers tech giants mostly.
-        if (['UPS', 'NYSE:UPS'].includes(ticker)) symbol = 'NYSE:UPS'; // Manual override example if needed
+        // Stock symbol logic
+        if (ticker.endsWith('.KS')) {
+            symbol = `KRX:${ticker.replace('.KS', '')}`;
+        } else {
+            symbol = `NASDAQ:${ticker}`; // Default assumption
+        }
     }
 
     const script = document.createElement('script');
@@ -577,7 +640,7 @@ function renderTradingViewWidget(ticker) {
         "width": "100%",
         "height": "100%",
         "locale": currentLang === 'ko' ? 'kr' : 'en',
-        "colorTheme": "light",
+        "colorTheme": currentTheme,
         "autosize": true,
         "showVolume": false,
         "showMA": false,
@@ -635,7 +698,7 @@ window.openNewsModal = function(id) {
     modal.classList.remove('hidden');
 }
 
-window.closeStockModal = function() {
+window.closeAssetModal = function() {
     document.getElementById('stock-modal').classList.add('hidden');
 };
 
@@ -648,7 +711,7 @@ function setupEventListeners() {
         const stockModal = document.getElementById('stock-modal');
         const newsModal = document.getElementById('news-modal');
         if (event.target == stockModal) {
-            closeStockModal();
+            closeAssetModal();
         }
         if (event.target == newsModal) {
             closeNewsModal();
@@ -659,4 +722,52 @@ function setupEventListeners() {
     
     // Search Listener
     document.getElementById('search-input').addEventListener('input', handleSearch);
+
+    // Theme Toggle Listener
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', toggleTheme);
+}
+
+// --- Theme Management ---
+
+let currentTheme = 'light';
+
+function initTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    if (savedTheme) {
+        currentTheme = savedTheme;
+    } else if (prefersDark) {
+        currentTheme = 'dark';
+    }
+
+    applyTheme();
+}
+
+function applyTheme() {
+    document.body.setAttribute('data-theme', currentTheme);
+    localStorage.setItem('theme', currentTheme);
+    
+    // If a stock modal is open, re-render the chart with the new theme
+    const modal = document.getElementById('stock-modal');
+    if (!modal.classList.contains('hidden')) {
+        const ticker = document.getElementById('modal-stock-ticker').textContent;
+        if (ticker) {
+            // We need to know the type to re-render correctly
+            const newsId = parseInt(modal.dataset.newsId); // Assuming we set this
+            const news = MOCK_NEWS.find(n => n.id === newsId);
+            if (news) {
+                const asset = news.relatedAssets.find(a => a.ticker === ticker);
+                if (asset) {
+                    renderTradingViewWidget(ticker, asset.type);
+                }
+            }
+        }
+    }
+}
+
+function toggleTheme() {
+    currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+    applyTheme();
 }

@@ -14,6 +14,22 @@
     --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
 }
 
+body[data-theme='dark'] {
+    --primary: #589dff;
+    --primary-light: #1c2e4a;
+    --bg-color: #161a23;
+    --card-bg: #212733;
+    --text-main: #c9d1d9;
+    --text-sub: #8b949e;
+    --border: #30363d;
+    --success: #56d364;
+    --danger: #f85149;
+    --accent: #a371f7;
+    
+    --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.4);
+}
+
 body {
     font-family: 'Noto Sans KR', sans-serif;
     background-color: var(--bg-color);
@@ -266,6 +282,29 @@ body {
 
 .stock-btn .trend-up { color: var(--success); font-size: 0.8em; }
 .stock-btn .trend-down { color: var(--danger); font-size: 0.8em; }
+
+.coin-btn {
+    background-color: #fff;
+    border: 1px solid #f0b90b; /* Crypto gold */
+    padding: 0.4rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #f0b90b;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.coin-btn:hover {
+    background-color: #fef5e2;
+    border-color: #f0b90b;
+}
+
+.coin-btn .trend-up { color: var(--success); font-size: 0.8em; }
+.coin-btn .trend-down { color: var(--danger); font-size: 0.8em; }
 
 /* Pagination */
 .pagination-container {
