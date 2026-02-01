@@ -1,5 +1,3 @@
-const GNEWS_API_KEY = 'b655deb2519b3dc7853c58b9f2e3b08a';
-
 const MOCK_NEWS = [];
 const COMPANIES = [
     { name: { en: "Apple", ko: "애플" }, ticker: "AAPL", market: "🇺🇸 US Market" },
@@ -259,15 +257,14 @@ function assignRelatedAssets(title, description) {
 async function fetchNewsFromGNews() {
     try {
         // Correctly encode the query for Korean characters
-        const query = encodeURIComponent('미국 증시 OR 코인 OR 경제'); 
-        const gnewsUrl = `https://gnews.io/api/v4/search?q=${query}&lang=ko&max=50&apikey=${GNEWS_API_KEY}`;
-        const proxyUrl = `https://cors-anywhere.herokuapp.com/`;
-        
+        const query = encodeURIComponent('미국 증시 OR 코인 OR 경제');
+        const gnewsUrl = `/api/gnews?q=${query}&lang=ko&max=50`;
+
         // Add timeout to prevent hanging
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 5000); // 5 second timeout
-        
-        const response = await fetch(proxyUrl + gnewsUrl, { signal: controller.signal });
+
+        const response = await fetch(gnewsUrl, { signal: controller.signal });
         clearTimeout(timeoutId);
 
         if (!response.ok) {
@@ -297,7 +294,7 @@ async function fetchNewsFromGNews() {
         });
     } catch (error) {
         console.warn("Using Backup Korean News due to API error:", error);
-        
+
         // Return Backup Data formatted correctly
         return BACKUP_KOREAN_NEWS.map((article, index) => {
             const smartSummary = generateSmartSummary(article.description, article.content);
@@ -510,7 +507,7 @@ function handleSearch(e) {
             const title = news.title[currentLang].toLowerCase();
             const tickerMatch = news.relatedAssets.some(a => 
                 a.ticker.toLowerCase().includes(query) || 
-                a.name.toLowerCase().includes(query)
+                a.name[currentLang].toLowerCase().includes(query)
             );
             return title.includes(query) || tickerMatch;
         });

@@ -9,7 +9,9 @@
     pkgs.python3
   ];
   # Sets environment variables in the workspace
-  env = {};
+  env = {
+    GNEWS_API_KEY = "b655deb2519b3dc7853c58b9f2e3b08a";
+  };
   idx = {
     # Search for the extensions you want on https://open-vsx.org/ and use "publisher.id"
     extensions = [
@@ -24,6 +26,10 @@
           command = ["python3" "-m" "http.server" "$PORT" "--bind" "0.0.0.0"];
           manager = "web";
         };
+        proxy = {
+          command = ["node" "proxy/server.js"];
+          manager = "web";
+        };
       };
     };
     # Workspace lifecycle hooks
@@ -31,14 +37,14 @@
       # Runs when a workspace is first created
       onCreate = {
         # Example: install JS dependencies from NPM
-        # npm-install = "npm install";
+        npm-install = "npm --prefix proxy install";
         # Open editors for the following files by default, if they exist:
         default.openFiles = [ "style.css" "main.js" "index.html" ];
       };
       # Runs when the workspace is (re)started
       onStart = {
         # Example: start a background task to watch and re-build backend code
-        # watch-backend = "npm run watch-backend";
+        start-proxy = "npm --prefix proxy start";
       };
     };
   };
